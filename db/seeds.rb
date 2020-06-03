@@ -5,3 +5,27 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Restaurant.delete_all
+Review.delete_all
+
+puts "=========== STARTING RESTO CREATION ==============="
+
+20.times do
+  restaurant = Restaurant.create(
+    name: Faker::Restaurant.name,
+    address: Faker::Address.full_address,
+    phone_number: Faker::PhoneNumber.cell_phone,
+    category: Faker::Restaurant.type
+  )
+  5.times do
+    Review.create(
+      content: Faker::Restaurant.review,
+      rating: rand(1..5),
+      restaurant_id: restaurant.id
+      )
+  end
+
+  puts "Restaurant created!"
+end
+
+puts "/////////// DONE ////////////"
